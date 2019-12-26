@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="collectionView" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="d6m-EU-K3t" id="eUe-j1-k6U"/>
+                <outlet property="searchTextField" destination="04d-wt-3Wg" id="lhV-oU-bOU"/>
+                <outlet property="view" destination="iN0-l3-epB" id="xti-Mt-dzk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="04d-wt-3Wg">
+                    <rect key="frame" x="0.0" y="44" width="414" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="wIL-Jg-V23"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="didEnterSearchText:" destination="-1" eventType="editingDidEnd" id="ola-ps-RE5"/>
+                    </connections>
+                </textField>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="d6m-EU-K3t">
+                    <rect key="frame" x="0.0" y="78" width="414" height="784"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sNV-dG-WEA">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="d6m-EU-K3t" firstAttribute="top" secondItem="04d-wt-3Wg" secondAttribute="bottom" id="29e-Hl-K2V"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="d6m-EU-K3t" secondAttribute="trailing" id="3yU-hK-dAq"/>
+                <constraint firstItem="04d-wt-3Wg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4EC-W8-1dm"/>
+                <constraint firstItem="d6m-EU-K3t" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="L2P-4S-gTI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="04d-wt-3Wg" secondAttribute="trailing" id="RMa-jz-K9H"/>
+                <constraint firstItem="04d-wt-3Wg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bdN-9Q-eMD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="d6m-EU-K3t" secondAttribute="bottom" id="rBo-zE-LSG"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="139" y="153"/>
+        </view>
+    </objects>
+</document>
