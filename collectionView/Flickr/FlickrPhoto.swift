@@ -19,24 +19,6 @@ class FlickrPhoto {
         guard let url =  URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(photoID)_\(secret)_\(size).jpg") else { return nil }
         return url
     }
-
-    func sizeToFillWidth(of size:CGSize) -> CGSize {
-        guard let thumbnail = thumbnail else { return size }
-
-        let imageSize = thumbnail.size
-        var returnSize = size
-
-        let aspectRatio = imageSize.width / imageSize.height
-
-        returnSize.height = returnSize.width / aspectRatio
-
-        if returnSize.height > size.height {
-            returnSize.height = size.height
-            returnSize.width = size.height * aspectRatio
-        }
-
-        return returnSize
-    }
 }
 
 extension FlickrPhoto: Equatable {

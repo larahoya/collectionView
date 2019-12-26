@@ -20,18 +20,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="04d-wt-3Wg">
-                    <rect key="frame" x="0.0" y="44" width="414" height="34"/>
+                    <rect key="frame" x="16" y="76" width="382" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="wIL-Jg-V23"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <action selector="didEnterSearchText:" destination="-1" eventType="editingDidEnd" id="ola-ps-RE5"/>
-                    </connections>
                 </textField>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="d6m-EU-K3t">
-                    <rect key="frame" x="0.0" y="78" width="414" height="784"/>
+                    <rect key="frame" x="0.0" y="126" width="414" height="736"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sNV-dG-WEA">
                         <size key="itemSize" width="50" height="50"/>
@@ -43,12 +40,12 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="d6m-EU-K3t" firstAttribute="top" secondItem="04d-wt-3Wg" secondAttribute="bottom" id="29e-Hl-K2V"/>
+                <constraint firstItem="d6m-EU-K3t" firstAttribute="top" secondItem="04d-wt-3Wg" secondAttribute="bottom" constant="16" id="29e-Hl-K2V"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="d6m-EU-K3t" secondAttribute="trailing" id="3yU-hK-dAq"/>
-                <constraint firstItem="04d-wt-3Wg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4EC-W8-1dm"/>
+                <constraint firstItem="04d-wt-3Wg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="4EC-W8-1dm"/>
                 <constraint firstItem="d6m-EU-K3t" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="L2P-4S-gTI"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="04d-wt-3Wg" secondAttribute="trailing" id="RMa-jz-K9H"/>
-                <constraint firstItem="04d-wt-3Wg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bdN-9Q-eMD"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="04d-wt-3Wg" secondAttribute="trailing" constant="16" id="RMa-jz-K9H"/>
+                <constraint firstItem="04d-wt-3Wg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="32" id="bdN-9Q-eMD"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="d6m-EU-K3t" secondAttribute="bottom" id="rBo-zE-LSG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
