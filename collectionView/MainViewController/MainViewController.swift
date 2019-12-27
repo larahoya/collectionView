@@ -18,17 +18,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTextField.delegate = self
-        collectionView.dataSource = self
-        collectionView.delegate = self
-
-        let bundle = Bundle(for: PhotoCell.self)
-        let nib = UINib(nibName: NSStringFromClass(PhotoCell.self).components(separatedBy: ".").last!, bundle: bundle)
-        collectionView.register(nib, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
-
-        let headerBundle = Bundle(for: MainCollectionViewHeader.self)
-        let headerNib = UINib(nibName: NSStringFromClass(MainCollectionViewHeader.self).components(separatedBy: ".").last!, bundle: headerBundle)
-        collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionViewHeader.reuseIdentifier)
-
+        configureCollectionView()
     }
 
     required init?(coder: NSCoder) {
@@ -39,12 +29,26 @@ final class MainViewController: UIViewController {
     private let defaultMargin: CGFloat = 8
 
     private var items: [FlickrSearchResults] = []
+    private var selectedItem: String?
 
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
 
     private func getPhoto(for indexPath: IndexPath) -> FlickrPhoto {
         return items[indexPath.section].searchResults[indexPath.row]
+    }
+
+    private func configureCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+
+        let bundle = Bundle(for: PhotoCell.self)
+        let nib = UINib(nibName: NSStringFromClass(PhotoCell.self).components(separatedBy: ".").last!, bundle: bundle)
+        collectionView.register(nib, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
+
+        let headerBundle = Bundle(for: MainCollectionViewHeader.self)
+        let headerNib = UINib(nibName: NSStringFromClass(MainCollectionViewHeader.self).components(separatedBy: ".").last!, bundle: headerBundle)
+        collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionViewHeader.reuseIdentifier)
     }
 }
 
@@ -74,9 +78,11 @@ extension MainViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PhotoCell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseIdentifier, for: indexPath) as! PhotoCell
-        if let image = getPhoto(for: indexPath).thumbnail {
-            cell.setImage(image)
+        let image = getPhoto(for: indexPath)
+        if let thumbnail = image.thumbnail {
+            cell.setImage(thumbnail)
         }
+        cell.isSelected = image.photoID == selectedItem
         return cell
     }
 
@@ -105,5 +111,15 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return defaultMargin
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedPhotoID = getPhoto(for: indexPath).photoID
+        if selectedItem == selectedPhotoID {
+            selectedItem = nil
+        } else {
+            selectedItem = selectedPhotoID
+        }
+        collectionView.reloadData()
     }
 }
