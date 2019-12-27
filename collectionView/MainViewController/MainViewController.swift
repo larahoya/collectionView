@@ -24,6 +24,11 @@ final class MainViewController: UIViewController {
         let bundle = Bundle(for: PhotoCell.self)
         let nib = UINib(nibName: NSStringFromClass(PhotoCell.self).components(separatedBy: ".").last!, bundle: bundle)
         collectionView.register(nib, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
+
+        let headerBundle = Bundle(for: MainCollectionViewHeader.self)
+        let headerNib = UINib(nibName: NSStringFromClass(MainCollectionViewHeader.self).components(separatedBy: ".").last!, bundle: headerBundle)
+        collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: MainCollectionViewHeader.reuseIdentifier)
+
     }
 
     required init?(coder: NSCoder) {
@@ -45,7 +50,7 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: MainViewDelegate {
     func add(searchResults: FlickrSearchResults) {
-        items.append(searchResults)
+        items.insert(searchResults, at: 0)
         collectionView.reloadData()
     }
 }
@@ -53,6 +58,7 @@ extension MainViewController: MainViewDelegate {
 extension MainViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         presenter.onUserSearch(text: textField.text!)
+        textField.text = ""
         return true
     }
 }
@@ -72,6 +78,17 @@ extension MainViewController: UICollectionViewDataSource {
             cell.setImage(image)
         }
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header: MainCollectionViewHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MainCollectionViewHeader.reuseIdentifier, for: indexPath) as! MainCollectionViewHeader
+        let title = items[indexPath.section].searchTerm
+        header.setTitle(title: title)
+        return header
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 48)
     }
 }
 
