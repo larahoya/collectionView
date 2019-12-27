@@ -42,6 +42,10 @@ final class MainViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
 
+        collectionView.dragInteractionEnabled = true
+        collectionView.dragDelegate = self
+        collectionView.dropDelegate = self
+
         let bundle = Bundle(for: PhotoCell.self)
         let nib = UINib(nibName: NSStringFromClass(PhotoCell.self).components(separatedBy: ".").last!, bundle: bundle)
         collectionView.register(nib, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
@@ -122,4 +126,42 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         }
         collectionView.reloadData()
     }
+}
+
+extension MainViewController: UICollectionViewDragDelegate {
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let thumbnail = getPhoto(for: indexPath).thumbnail else { return [] }
+        let item = NSItemProvider(object: thumbnail)
+        let dragItem = UIDragItem(itemProvider: item)
+        return [dragItem]
+    }
+
+}
+
+extension MainViewController: UICollectionViewDropDelegate {
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
+
+        coordinator.items.forEach { item in
+            guard let sourceIndexPath = item.sourceIndexPath else { return }
+
+            let updates: (() -> Void)? = { [weak self] in
+                guard let self = self else { return }
+                let image = self.getPhoto(for: sourceIndexPath)
+                self.items[sourceIndexPath.section].searchResults.remove(at: sourceIndexPath.row)
+                self.items[destinationIndexPath.section].searchResults.insert(image, at: destinationIndexPath.row)
+                collectionView.deleteItems(at: [sourceIndexPath])
+                collectionView.insertItems(at: [destinationIndexPath])
+            }
+            let completion: ((Bool) -> Void)? = { _ in
+                coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
+            }
+            collectionView.performBatchUpdates(updates, completion: completion)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+
 }
