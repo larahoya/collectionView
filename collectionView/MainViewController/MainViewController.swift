@@ -86,7 +86,6 @@ extension MainViewController: UICollectionViewDataSource {
         if let thumbnail = image.thumbnail {
             cell.setImage(thumbnail)
         }
-        cell.isSelected = image.photoID == selectedItem
         return cell
     }
 
@@ -104,9 +103,15 @@ extension MainViewController: UICollectionViewDataSource {
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionViewWidth = collectionView.bounds.width
-        let size = (collectionViewWidth - (defaultMargin * (itemsPerLine + 3))) / itemsPerLine
-        return CGSize(width: size, height: size)
+        if getPhoto(for: indexPath).photoID == selectedItem {
+            let collectionViewWidth = collectionView.bounds.width
+            let size = collectionViewWidth - (defaultMargin * 2)
+            return CGSize(width: size, height: size)
+        } else {
+            let collectionViewWidth = collectionView.bounds.width
+            let size = (collectionViewWidth - (defaultMargin * (itemsPerLine + 3))) / itemsPerLine
+            return CGSize(width: size, height: size)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -8,7 +8,7 @@ enum Result<ResultType> {
 
 class FlickrResource {
 
-    let apiKey = "1f7dd32499f9cc712a25508571573125"
+    let apiKey = "51e45fe8446e6eb7a4aedad6610dd847"
 
     enum Error: Swift.Error {
         case unknownAPIResponse
